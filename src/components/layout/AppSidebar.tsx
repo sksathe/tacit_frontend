@@ -1,0 +1,201 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Bot, Calendar, Menu, X, Settings, Home, Workflow, FileText, ChevronDown, Plus, Clock } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useSidebar } from "@/contexts/SidebarContext";
+import { useAuth } from "@/contexts/AuthContext";
+import { meetings } from "@/data/mockData";
+import { formatDistanceToNow } from "date-fns";
+
+export function AppSidebar() {
+    const pathname = usePathname();
+    const { isCollapsed, toggleSidebar } = useSidebar();
+    const { user } = useAuth();
+    const [isMeetingsExpanded, setIsMeetingsExpanded] = useState(true);
+
+    const navItems = [
+        { name: "Personal", href: "/", icon: Home },
+        { name: "Agents", href: "/agents", icon: Bot },
+        { name: "Meetings", href: "/meetings", icon: Calendar },
+        { name: "Workflows", href: "/workflows", icon: Workflow },
+        { name: "Documents", href: "/documents", icon: FileText },
+        { name: "Settings", href: "/settings", icon: Settings },
+    ];
+
+    // Get current/upcoming meetings (Scheduled or In Progress)
+    const currentMeetings = meetings
+        .filter(m => m.status === 'Scheduled' || m.status === 'In Progress')
+        .slice(0, 3)
+        .sort((a, b) => new Date(a.scheduledAt).getTime() - new Date(b.scheduledAt).getTime());
+
+    const getStatusColor = (status: string) => {
+        switch (status) {
+            case 'In Progress':
+                return 'bg-emerald-500';
+            case 'Scheduled':
+                return 'bg-yellow-500';
+            case 'Completed':
+                return 'bg-blue-500';
+            default:
+                return 'bg-gray-500';
+        }
+    };
+
+    const getStatusBadge = (status: string) => {
+        switch (status) {
+            case 'In Progress':
+                return { text: 'Active', color: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' };
+            case 'Scheduled':
+                return { text: 'Upcoming', color: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' };
+            default:
+                return { text: status, color: 'bg-blue-500/20 text-blue-400 border-blue-500/30' };
+        }
+    };
+
+    if (isCollapsed) {
+        return (
+            <div className="bg-[#0a0a0f] border-r border-white/10 h-screen fixed left-0 top-0 flex flex-col z-30 transition-all duration-300 w-16">
+                <div className="p-4 flex flex-col gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center border border-white/10">
+                        <Bot className="w-4 h-4 text-blue-400" />
+                    </div>
+                    <button
+                        onClick={toggleSidebar}
+                        className="w-full flex justify-center p-1.5 rounded-lg hover:bg-white/5 text-white/60 hover:text-white transition-colors"
+                        aria-label="Expand sidebar"
+                    >
+                        <Menu className="w-4 h-4" />
+                    </button>
+                </div>
+                <nav className="flex-1 space-y-1 py-4 px-2">
+                    {navItems.map((item) => {
+                        const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+                        return (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                className={cn(
+                                    "flex items-center justify-center rounded-lg p-2 transition-all duration-200",
+                                isActive
+                                    ? "bg-gradient-to-r from-emerald-500/20 to-green-500/20 text-white"
+                                    : "text-white/60 hover:text-white hover:bg-white/5"
+                                )}
+                                title={item.name}
+                            >
+                                <item.icon className="w-4 h-4" />
+                            </Link>
+                        );
+                    })}
+                </nav>
+            </div>
+        );
+    }
+
+    return (
+        <div className="bg-[#0a0a0f] border-r border-white/10 h-screen fixed left-0 top-0 flex flex-col z-30 transition-all duration-300 w-64 shadow-2xl">
+            {/* Logo Area */}
+            <div className="p-6 border-b border-white/10">
+                <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500/30 to-purple-500/30 flex items-center justify-center border border-white/10 shadow-lg">
+                            <Bot className="w-4 h-4 text-blue-400" />
+                        </div>
+                        <h1 className="text-lg font-bold text-white tracking-tight whitespace-nowrap">Tacit</h1>
+                    </div>
+                    <button
+                        onClick={toggleSidebar}
+                        className="p-1.5 rounded-lg hover:bg-white/5 text-white/60 hover:text-white transition-colors flex-shrink-0"
+                        aria-label="Collapse sidebar"
+                    >
+                        <X className="w-4 h-4" />
+                    </button>
+                </div>
+            </div>
+
+            {/* Navigation */}
+            <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
+                {navItems.map((item) => {
+                    const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+                    return (
+                        <Link
+                            key={item.href}
+                            href={item.href}
+                            className={cn(
+                                "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                                isActive
+                                    ? "bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-lg shadow-emerald-500/20"
+                                    : "text-white/70 hover:text-white hover:bg-white/5"
+                            )}
+                        >
+                            <item.icon className={cn("w-4 h-4 flex-shrink-0", isActive ? "text-white" : "text-white/60 group-hover:text-white")} />
+                            <span className="flex-1 min-w-0">{item.name}</span>
+                        </Link>
+                    );
+                })}
+
+                {/* Current Meetings Section */}
+                <div className="mt-6 pt-4 border-t border-white/10">
+                    <button
+                        onClick={() => setIsMeetingsExpanded(!isMeetingsExpanded)}
+                        className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold text-white/60 hover:text-white transition-colors uppercase tracking-wider"
+                    >
+                        <div className="flex items-center gap-2">
+                            <ChevronDown className={cn("w-3 h-3 transition-transform duration-200", isMeetingsExpanded ? "rotate-0" : "-rotate-90")} />
+                            <span>Current Meetings</span>
+                        </div>
+                        <Plus className="w-3 h-3 hover:bg-white/10 rounded p-0.5 transition-colors" />
+                    </button>
+
+                    {isMeetingsExpanded && (
+                        <div className="mt-2 space-y-2">
+                            {currentMeetings.length > 0 ? (
+                                currentMeetings.map((meeting) => {
+                                    const statusBadge = getStatusBadge(meeting.status);
+                                    const isNow = meeting.status === 'In Progress';
+                                    return (
+                                        <div
+                                            key={meeting.id}
+                                            className={cn(
+                                                "group rounded-xl px-3 py-2.5 transition-all duration-200 cursor-pointer",
+                                                isNow
+                                                    ? "bg-gradient-to-r from-emerald-500/20 to-emerald-600/10 border border-emerald-500/30"
+                                                    : "bg-white/5 hover:bg-white/10 border border-transparent hover:border-white/10"
+                                            )}
+                                        >
+                                            <div className="flex items-start gap-2 mb-1.5">
+                                                <div className={cn("w-2 h-2 rounded-full mt-1.5 flex-shrink-0", getStatusColor(meeting.status))} />
+                                                <div className="flex-1 min-w-0">
+                                                    <p className="text-xs font-medium text-white truncate">{meeting.title}</p>
+                                                    <p className="text-[10px] text-white/50 mt-0.5 line-clamp-1">{meeting.description}</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center justify-between mt-2">
+                                                <span className={cn("text-[10px] px-1.5 py-0.5 rounded-md border font-medium", statusBadge.color)}>
+                                                    {statusBadge.text}
+                                                </span>
+                                                {meeting.status === 'Scheduled' && (
+                                                    <div className="flex items-center gap-1 text-[10px] text-white/50">
+                                                        <Clock className="w-3 h-3" />
+                                                        <span>{formatDistanceToNow(new Date(meeting.scheduledAt), { addSuffix: true })}</span>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <div className="px-3 py-4 text-center">
+                                    <p className="text-xs text-white/40">No active meetings</p>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+            </nav>
+
+        </div>
+    );
+}
