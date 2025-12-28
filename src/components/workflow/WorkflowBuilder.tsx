@@ -42,10 +42,10 @@ function CustomNode({ data, selected }: { data: CustomNodeData; selected?: boole
     const stepType = WORKFLOW_STEP_TYPES.find(t => t.value === data.step.type);
     
     return (
-        <div className={`px-4 py-3 shadow-xl rounded-xl border-2 min-w-[220px] bg-card/90 backdrop-blur-sm transition-all duration-200 ${
+        <div className={`px-4 py-3 shadow-xl rounded-md border-2 min-w-[220px] bg-[rgba(255,255,255,0.02)] backdrop-blur-sm transition-all duration-200 ${
             selected 
-                ? 'border-primary shadow-[0_0_20px_-5px_rgba(16,185,129,0.5)] scale-105' 
-                : 'border-border hover:border-primary/30 hover:shadow-2xl'
+                ? 'border-[#22c55e] shadow-[0_0_20px_-5px_rgba(34,197,94,0.6)] scale-105' 
+                : 'border-white/10 hover:border-[#22c55e]/40 hover:shadow-2xl'
         }`}>
             <Handle 
                 type="target" 
@@ -55,7 +55,7 @@ function CustomNode({ data, selected }: { data: CustomNodeData; selected?: boole
             
             <div className="flex items-start justify-between gap-3 mb-2">
                 <div className="flex items-center gap-3 flex-1 min-w-0">
-                    <div className={`w-10 h-10 rounded-lg ${stepType?.color || 'bg-gray-500'} flex items-center justify-center flex-shrink-0 shadow-md`}>
+                    <div className={`w-10 h-10 rounded-md ${stepType?.color || 'bg-gray-500'} flex items-center justify-center flex-shrink-0 shadow-md`}>
                         <span className="text-white text-lg font-bold">
                             {stepType?.icon || '⚙️'}
                         </span>
@@ -96,17 +96,17 @@ function CustomNode({ data, selected }: { data: CustomNodeData; selected?: boole
 
 function StartNode({ selected }: { selected?: boolean }) {
     return (
-        <div className={`w-14 h-14 shadow-xl rounded-xl border-2 bg-gradient-to-br from-primary/20 via-primary/15 to-primary/10 backdrop-blur-sm flex items-center justify-center transition-all duration-200 ${
+        <div className={`w-14 h-14 shadow-xl rounded-md border-2 bg-gradient-to-br from-[#22c55e]/20 via-[#22c55e]/15 to-[#22c55e]/10 backdrop-blur-sm flex items-center justify-center transition-all duration-200 ${
             selected 
-                ? 'border-primary shadow-[0_0_20px_-5px_rgba(16,185,129,0.5)] scale-110' 
-                : 'border-primary/60 hover:border-primary hover:shadow-2xl'
+                ? 'border-[#22c55e] shadow-[0_0_20px_-5px_rgba(34,197,94,0.6)] scale-110' 
+                : 'border-[#22c55e]/60 hover:border-[#22c55e] hover:shadow-2xl'
         }`}>
-            <Handle 
-                type="source" 
-                position={Position.Bottom} 
-                className="!bg-primary !w-3 !h-3 !border-2 !border-background !rounded-full hover:!scale-125 transition-transform" 
+            <Handle
+                type="source"
+                position={Position.Bottom}
+                className="!bg-[#22c55e] !w-3 !h-3 !border-2 !border-[#09090b] !rounded-full hover:!scale-125 transition-transform"
             />
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shadow-lg">
+            <div className="w-8 h-8 rounded-md bg-[#22c55e] flex items-center justify-center shadow-lg">
                 <span className="text-white font-bold text-sm">▶</span>
             </div>
         </div>
@@ -115,17 +115,17 @@ function StartNode({ selected }: { selected?: boolean }) {
 
 function EndNode({ selected }: { selected?: boolean }) {
     return (
-        <div className={`w-14 h-14 shadow-xl rounded-xl border-2 bg-gradient-to-br from-slate-500/20 via-slate-500/15 to-slate-600/10 backdrop-blur-sm flex items-center justify-center transition-all duration-200 ${
+        <div className={`w-14 h-14 shadow-xl rounded-md border-2 bg-gradient-to-br from-red-500/30 via-red-500/20 to-red-600/10 backdrop-blur-sm flex items-center justify-center transition-all duration-200 ${
             selected 
-                ? 'border-slate-400 shadow-[0_0_20px_-5px_rgba(148,163,184,0.5)] scale-110' 
-                : 'border-slate-500/60 hover:border-slate-400 hover:shadow-2xl'
+                ? 'border-red-400 shadow-[0_0_20px_-5px_rgba(239,68,68,0.5)] scale-110' 
+                : 'border-red-500/60 hover:border-red-400 hover:shadow-2xl'
         }`}>
             <Handle 
                 type="target" 
                 position={Position.Top} 
-                className="!bg-slate-500 !w-3 !h-3 !border-2 !border-background !rounded-full hover:!scale-125 transition-transform" 
+                className="!bg-red-500 !w-3 !h-3 !border-2 !border-[#09090b] !rounded-full hover:!scale-125 transition-transform" 
             />
-            <div className="w-8 h-8 rounded-lg bg-slate-500 flex items-center justify-center shadow-lg">
+            <div className="w-8 h-8 rounded-md bg-red-500 flex items-center justify-center shadow-lg">
                 <span className="text-white font-bold text-sm">■</span>
             </div>
         </div>
@@ -303,9 +303,9 @@ export function WorkflowBuilder({ steps, onStepsChange }: WorkflowBuilderProps) 
                 type: 'smoothstep',
                 animated: true,
                 style: { 
-                    stroke: 'rgb(34, 197, 94)', 
+                    stroke: '#22c55e', 
                     strokeWidth: 2.5,
-                    filter: 'drop-shadow(0 0 3px rgba(34, 197, 94, 0.4))',
+                    filter: 'drop-shadow(0 0 3px rgba(34, 197, 94, 0.5))',
                 },
             });
         }
@@ -319,9 +319,9 @@ export function WorkflowBuilder({ steps, onStepsChange }: WorkflowBuilderProps) 
                 type: 'smoothstep',
                 animated: true,
                 style: { 
-                    stroke: 'rgb(16, 185, 129)', 
+                    stroke: '#22c55e', 
                     strokeWidth: 2.5,
-                    filter: 'drop-shadow(0 0 3px rgba(16, 185, 129, 0.3))',
+                    filter: 'drop-shadow(0 0 3px rgba(34, 197, 94, 0.5))',
                 },
             });
         });
@@ -368,22 +368,25 @@ export function WorkflowBuilder({ steps, onStepsChange }: WorkflowBuilderProps) 
                 defaultEdgeOptions={{
                     type: 'smoothstep',
                     animated: true,
-                    style: { strokeWidth: 2.5 },
+                    style: { 
+                        strokeWidth: 2.5,
+                        stroke: '#22c55e',
+                    },
                 }}
             >
-                <Background 
+                <Background
                     variant="dots" 
                     gap={20} 
                     size={1}
-                    color="rgba(148, 163, 184, 0.15)"
+                    color="rgba(255, 255, 255, 0.05)"
                     className="opacity-100"
                 />
                 <Controls 
-                    className="bg-black/90 backdrop-blur-md border border-white/10 shadow-lg rounded-lg p-1"
+                    className="bg-[rgba(255,255,255,0.02)]/90 backdrop-blur-md border border-white/10 shadow-lg rounded-md p-1"
                     showInteractive={false}
                 />
                 <MiniMap 
-                    className="bg-black/90 backdrop-blur-md border border-white/10 shadow-xl rounded-lg overflow-hidden"
+                    className="bg-[rgba(255,255,255,0.02)]/90 backdrop-blur-md border border-white/10 shadow-xl rounded-md overflow-hidden"
                     nodeColor={(node) => {
                         if (node.type === 'start') {
                             return '#22c55e'; // green-500

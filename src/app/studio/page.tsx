@@ -65,7 +65,7 @@ export default function StudioPage() {
         <div className="fixed inset-0 w-screen h-screen overflow-hidden bg-black">
             {/* Floating Header */}
             <div className="absolute top-4 left-4 right-4 z-50">
-                <div className="bg-background/90 backdrop-blur-md border border-white/10 rounded-lg shadow-lg p-3">
+                <div className="bg-[rgba(255,255,255,0.02)]/90 backdrop-blur-md border border-white/10 rounded-md shadow-lg p-3">
                     <div className="flex items-center justify-between gap-4">
                         <div className="flex items-center gap-3">
                             <Button
@@ -99,7 +99,7 @@ export default function StudioPage() {
                             <Button
                                 onClick={handleSave}
                                 disabled={isSaving || !name.trim() || steps.length === 0}
-                                className="shadow-[0_0_20px_-5px_rgba(16,185,129,0.4)] h-8 px-3"
+                                className="shadow-[0_0_20px_-5px_rgba(34,197,94,0.4)] h-8 px-3 bg-[#22c55e] hover:bg-[#22c55e]/90 text-white rounded-lg breathing-glow"
                                 size="sm"
                             >
                                 <Save className="w-3.5 h-3.5 mr-1.5" />

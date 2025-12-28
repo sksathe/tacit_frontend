@@ -29,7 +29,7 @@ export function KnowledgeDocumentModal({
             <DialogContent className="w-[95vw] h-[95vh] max-w-none max-h-[95vh] flex flex-col p-0 gap-0 m-0 translate-x-[-50%] translate-y-[-50%]">
                 <DialogHeader className="px-8 pt-5 pb-4 flex-shrink-0 border-b border-border/50 bg-sidebar/30 backdrop-blur-sm">
                     <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20 flex-shrink-0">
+                        <div className="w-9 h-9 rounded-md bg-primary/10 flex items-center justify-center border border-primary/20 flex-shrink-0">
                             <FileText className="h-4 w-4 text-primary" />
                         </div>
                         <div className="flex-1 min-w-0">

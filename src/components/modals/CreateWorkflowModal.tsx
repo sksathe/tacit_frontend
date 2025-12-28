@@ -57,7 +57,7 @@ export function CreateWorkflowModal({
             <DialogContent className="sm:max-w-[900px] max-h-[95vh] overflow-y-auto">
                 <DialogHeader>
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center border border-primary/20">
+                        <div className="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center border border-primary/20">
                             <Workflow className="h-5 w-5 text-primary" />
                         </div>
                         <DialogTitle>Create Workflow</DialogTitle>

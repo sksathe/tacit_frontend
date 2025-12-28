@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MainLayout } from "@/components/layout/MainLayout";
+import { TacitChrome } from "@/components/layout/TacitChrome";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,6 +10,7 @@ import { agents } from "@/data/mockData";
 import { Plus, Search, Bot, Clock, CheckCircle2, XCircle } from "lucide-react";
 import { AddAgentModal } from "@/components/modals/AddAgentModal";
 import { cn } from "@/lib/utils";
+import { Hint } from "@/components/ui/hint";
 
 export default function AgentsPage() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -40,7 +41,7 @@ export default function AgentsPage() {
     };
 
     return (
-        <MainLayout title="Agents">
+        <TacitChrome>
             <div className="mb-8">
                 <div className="flex items-center justify-between mb-6">
                     <div>
@@ -67,6 +68,9 @@ export default function AgentsPage() {
                         className="pl-9 bg-white/[0.03] border-white/5 focus:bg-white/[0.05] focus:border-primary/30"
                     />
                 </div>
+                <Hint variant="tip">
+                    Create AI agent personas with specific roles (like SOC2 Auditor, Product Manager) to join your meetings. Agents will listen, take notes, and generate documents based on their expertise.
+                </Hint>
             </div>
 
             <AddAgentModal
@@ -78,10 +82,10 @@ export default function AgentsPage() {
             {filteredAgents.length > 0 ? (
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {filteredAgents.map((agent) => (
-                        <Card key={agent.id} className="bg-[#1a1a1f] border-white/10 rounded-xl overflow-hidden">
+                        <Card key={agent.id} className="bg-[#1a1a1f] border-white/10 rounded-md overflow-hidden">
                             <CardHeader className="pb-3">
                                 <div className="flex items-start justify-between gap-2 mb-2">
-                                    <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center border border-white/10 flex-shrink-0">
+                                    <div className="w-12 h-12 rounded-md bg-white/5 flex items-center justify-center border border-white/10 flex-shrink-0">
                                         <Bot className="h-6 w-6 text-white/80" />
                                     </div>
                                     <Badge 
@@ -149,7 +153,7 @@ export default function AgentsPage() {
                     )}
                 </div>
             )}
-        </MainLayout>
+        </TacitChrome>
     );
 }
 

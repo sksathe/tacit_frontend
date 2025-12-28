@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MainLayout } from "@/components/layout/MainLayout";
+import { TacitChrome } from "@/components/layout/TacitChrome";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,7 @@ import { Plus, Search, Workflow as WorkflowIcon, Play, Trash2, Edit } from "luci
 import { RunWorkflowModal } from "@/components/modals/RunWorkflowModal";
 import { Workflow } from "@/types";
 import { useRouter } from "next/navigation";
+import { Hint } from "@/components/ui/hint";
 
 export default function WorkflowsPage() {
     const router = useRouter();
@@ -52,7 +53,7 @@ export default function WorkflowsPage() {
     };
 
     return (
-        <MainLayout title="Workflows">
+        <TacitChrome>
             <div className="mb-8">
                 <div className="flex items-center justify-between mb-6">
                     <div>
@@ -79,6 +80,9 @@ export default function WorkflowsPage() {
                         className="pl-9 bg-white/[0.03] border-white/5 focus:bg-white/[0.05] focus:border-primary/30"
                     />
                 </div>
+                <Hint variant="tip">
+                    Workflows transform meeting transcripts into structured documents. Build workflows with steps like "Extract Topics", "Summarize", or "Export PDF" to automate document generation.
+                </Hint>
             </div>
 
             <RunWorkflowModal
@@ -91,7 +95,7 @@ export default function WorkflowsPage() {
             {filteredWorkflows.length > 0 ? (
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {filteredWorkflows.map((workflow) => (
-                        <Card key={workflow.id} className="bg-[#1a1a1f] border-white/10 rounded-xl overflow-hidden">
+                        <Card key={workflow.id} className="bg-[#1a1a1f] border-white/10 rounded-md overflow-hidden">
                             <CardHeader>
                                 <div className="flex items-start justify-between gap-4 mb-2">
                                     <div className="flex-1">
@@ -102,7 +106,7 @@ export default function WorkflowsPage() {
                                             {workflow.description || "No description"}
                                         </CardDescription>
                                     </div>
-                                    <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/10">
+                                    <div className="w-10 h-10 rounded-md bg-white/5 flex items-center justify-center border border-white/10">
                                         <WorkflowIcon className="h-5 w-5 text-white/80" />
                                     </div>
                                 </div>
@@ -176,7 +180,7 @@ export default function WorkflowsPage() {
                     )}
                 </div>
             )}
-        </MainLayout>
+        </TacitChrome>
     );
 }
 

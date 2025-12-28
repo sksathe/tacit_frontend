@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { MainLayout } from "@/components/layout/MainLayout";
+import { TacitChrome } from "@/components/layout/TacitChrome";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -25,6 +25,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Document } from "@/types";
+import { Hint } from "@/components/ui/hint";
 
 export default function DocumentsPage() {
     const [searchQuery, setSearchQuery] = useState("");
@@ -202,7 +203,7 @@ export default function DocumentsPage() {
     };
 
     return (
-        <MainLayout title="Documents">
+        <TacitChrome>
             <div className="mb-8">
                 <div className="flex items-center justify-between mb-6">
                     <div>
@@ -275,6 +276,9 @@ export default function DocumentsPage() {
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
+                <Hint variant="tip">
+                    Documents are automatically generated from meetings when workflows are assigned. Click "View" to see markdown content, or "Download" to save PDF/DOCX files. Use filters to find documents by type or source.
+                </Hint>
             </div>
 
             {isLoading ? (
@@ -290,7 +294,7 @@ export default function DocumentsPage() {
                     <p className="text-sm text-white/40">Showing mock data as fallback</p>
                 </div>
             ) : filteredDocuments.length > 0 ? (
-                <div className="border border-white/10 rounded-xl overflow-hidden bg-[#1a1a1f]">
+                <div className="border border-white/10 rounded-md overflow-hidden bg-[#1a1a1f]">
                     <div className="divide-y divide-white/10">
                         {filteredDocuments.map((doc) => (
                             <div 
@@ -349,7 +353,7 @@ export default function DocumentsPage() {
                 setSelectedDocument(null);
                 setMarkdownContent("");
             }}>
-                <DialogContent className="w-[95vw] h-[95vh] max-w-none max-h-[95vh] flex flex-col p-0 gap-0 bg-[#1a1a1f] border-white/10 rounded-xl translate-x-[-50%] translate-y-[-50%] overflow-hidden">
+                <DialogContent className="w-[95vw] h-[95vh] max-w-none max-h-[95vh] flex flex-col p-0 gap-0 bg-[#1a1a1f] border-white/10 rounded-md translate-x-[-50%] translate-y-[-50%] overflow-hidden">
                     <DialogHeader className="px-8 pt-6 pb-4 flex-shrink-0 border-b border-white/10 bg-[#1a1a1f]">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
@@ -384,9 +388,9 @@ export default function DocumentsPage() {
                                             inline ? (
                                                 <code className="bg-white/10 text-emerald-400 px-1.5 py-0.5 rounded text-sm font-mono" {...props} />
                                             ) : (
-                                                <code className="block bg-white/5 text-white/90 p-4 rounded-lg overflow-x-auto text-sm font-mono border border-white/10" {...props} />
+                                                <code className="block bg-white/5 text-white/90 p-4 rounded-md overflow-x-auto text-sm font-mono border border-white/10" {...props} />
                                             ),
-                                        pre: ({node, ...props}) => <pre className="bg-white/5 border border-white/10 rounded-lg p-4 overflow-x-auto mb-4" {...props} />,
+                                        pre: ({node, ...props}) => <pre className="bg-white/5 border border-white/10 rounded-md p-4 overflow-x-auto mb-4" {...props} />,
                                         ul: ({node, ...props}) => <ul className="list-disc list-inside text-white/80 mb-4 space-y-2" {...props} />,
                                         ol: ({node, ...props}) => <ol className="list-decimal list-inside text-white/80 mb-4 space-y-2" {...props} />,
                                         li: ({node, ...props}) => <li className="text-white/80" {...props} />,
@@ -406,7 +410,7 @@ export default function DocumentsPage() {
                     </div>
                 </DialogContent>
             </Dialog>
-        </MainLayout>
+        </TacitChrome>
     );
 }
 
