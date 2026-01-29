@@ -375,7 +375,6 @@ export function WorkflowBuilder({ steps, onStepsChange }: WorkflowBuilderProps) 
                 }}
             >
                 <Background
-                    variant="dots" 
                     gap={20} 
                     size={1}
                     color="rgba(255, 255, 255, 0.05)"

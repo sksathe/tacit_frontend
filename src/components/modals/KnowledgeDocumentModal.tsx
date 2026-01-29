@@ -37,7 +37,7 @@ export function KnowledgeDocumentModal({
                             <div className="flex flex-wrap items-center gap-3 text-xs">
                                 <div className="flex items-center gap-1.5 bg-white/5 px-2 py-1 rounded-md border border-white/10">
                                     <Calendar className="h-3.5 w-3.5 text-primary flex-shrink-0" />
-                                    <span className="text-muted-foreground">{new Date(item.createdDate).toLocaleDateString('en-US', { 
+                                    <span className="text-muted-foreground">{new Date(item.createdDate || item.createdAt).toLocaleDateString('en-US', { 
                                         year: 'numeric', 
                                         month: 'long', 
                                         day: 'numeric' 

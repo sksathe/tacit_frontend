@@ -16,6 +16,7 @@ import { projects } from "@/data/mockData";
 import { AddProjectModal } from "@/components/modals/AddProjectModal";
 import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
+import { Project } from "@/types";
 
 interface TopBarProps {
     title: string;
@@ -26,7 +27,7 @@ export function TopBar({ title }: TopBarProps) {
     const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
     const [selectedProjectId, setSelectedProjectId] = useState('project_personal');
 
-    const currentProject = projects.find(p => p.id === selectedProjectId) || projects[0];
+    const currentProject = projects.find((p: Project) => p.id === selectedProjectId) || projects[0];
 
     const handleAddProject = (projectData: { name: string; description?: string }) => {
         // TODO: Integrate with backend API
@@ -55,7 +56,7 @@ export function TopBar({ title }: TopBarProps) {
                     <DropdownMenuContent align="start" className="w-64 bg-[rgba(255,255,255,0.02)] border-white/10 backdrop-blur-xl">
                         <DropdownMenuLabel className="text-white">Projects</DropdownMenuLabel>
                         <DropdownMenuSeparator className="bg-white/10" />
-                        {projects.map((project) => (
+                        {projects.map((project: Project) => (
                             <DropdownMenuItem
                                 key={project.id}
                                 onClick={() => setSelectedProjectId(project.id)}

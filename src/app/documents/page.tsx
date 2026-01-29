@@ -42,7 +42,7 @@ export default function DocumentsPage() {
         const matchesSearch = 
             doc.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             doc.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            doc.sourceName.toLowerCase().includes(searchQuery.toLowerCase());
+            doc.sourceName?.toLowerCase().includes(searchQuery.toLowerCase());
         
         const matchesType = filterType === "all" || doc.type === filterType;
         const matchesSource = filterSource === "all" || doc.source === filterSource;

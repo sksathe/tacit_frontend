@@ -89,7 +89,7 @@ export default function WorkflowsPage() {
                 open={isRunModalOpen}
                 onOpenChange={setIsRunModalOpen}
                 workflow={selectedWorkflow}
-                onRun={handleExecuteWorkflow}
+                onExecute={handleExecuteWorkflow}
             />
 
             {filteredWorkflows.length > 0 ? (

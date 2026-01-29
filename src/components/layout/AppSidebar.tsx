@@ -5,14 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Bot, Calendar, Menu, X, Settings, Home, Workflow, FileText, ChevronDown, Plus, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useSidebar } from "@/contexts/SidebarContext";
+import { useTacitSidebar } from "@/contexts/TacitSidebarContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { meetings } from "@/data/mockData";
 import { formatDistanceToNow } from "date-fns";
 
 export function AppSidebar() {
     const pathname = usePathname();
-    const { isCollapsed, toggleSidebar } = useSidebar();
+    const { isSidebarOpen, toggleSidebar } = useTacitSidebar();
     const { user } = useAuth();
     const [isMeetingsExpanded, setIsMeetingsExpanded] = useState(true);
 
@@ -55,7 +55,7 @@ export function AppSidebar() {
         }
     };
 
-    if (isCollapsed) {
+    if (!isSidebarOpen) {
         return (
             <div className="bg-black border-r border-white/10 h-screen fixed left-0 top-0 flex flex-col z-30 transition-all duration-300 w-16">
                 <div className="p-4 flex flex-col gap-3">
